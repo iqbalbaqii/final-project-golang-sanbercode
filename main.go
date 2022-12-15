@@ -21,7 +21,6 @@ func main() {
 
 	var router = gin.Default()
 	var root = router.Group("/polling", auth.BasicAuth)
-	root.GET("/", CTopik.GetActivePolling)
 
 	root.GET("/aktif", CTopik.GetActivePolling)
 

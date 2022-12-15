@@ -1,17 +1,17 @@
 package structs
 
 type Topik struct {
-	Id         int64  `json:"-"`
+	Id         int64  `json:"id"`
 	Judul      string `json:"judul"`
 	Pertanyaan string `json:"pertanyaan"`
 	Periode    string `json:"-"`
 	StartDate  string `json:"start_date"`
 	EndDate    string `json:"end_date"`
-	CreatedBy  string `json:"-"`
+	CreatedBy  string `json:"created_by"`
 	CreatedAt  string `json:"-"`
 	UpdateAt   string `json:"-"`
-	Deleted    string `json:"deleted"`
-	IsRelease  string `json:"-"`
+	Deleted    string `json:"-"`
+	IsRelease  string `json:"is_realese"`
 	Target     string `json:"target"`
 }
 
@@ -22,13 +22,14 @@ type Konten struct {
 	Keterangan string `json:"keterangan"`
 	ImageSrc   string `json:"image_src"`
 	Deleted    int    `json:"-"`
+	Voting     string
 }
 
 type Respon struct {
 	Id        int64  `json:"-"`
 	IdTopik   string `json:"id_topik"`
-	Response  string `json:"response"`
-	CreatedBy string `json:"created_by"`
+	Response  string `json:"id_konten"`
+	CreatedBy string `json:"-"`
 	CreatedAt string `json:"-"`
 	UpdateAt  string `json:"-"`
 }
@@ -61,6 +62,13 @@ type User struct {
 type Polling struct {
 	Topik  Topik
 	Konten Konten
+}
+
+type Account struct {
+	Username string
+	Password string
+	Email    string
+	Level    string
 }
 
 // =======================

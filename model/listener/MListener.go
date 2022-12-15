@@ -2,6 +2,7 @@ package listener
 
 import (
 	connect "final-project-golang-sanbercode/model"
+	"final-project-golang-sanbercode/structs"
 	"fmt"
 	"strings"
 )
@@ -23,4 +24,24 @@ func SetListener(target string, username []string) error {
 
 	errs := connect.Db.QueryRow(sql)
 	return errs.Err()
+}
+
+func GetListener(target string) (res []structs.Listener) {
+	sql := fmt.Sprintf("SELECT * FROM listener where target = '%s'", target)
+	raw, err := connect.Db.Query(sql)
+
+	if err != nil {
+		panic(err)
+	}
+	defer raw.Close()
+
+	for raw.Next() {
+		var temp structs.Listener
+		err = raw.Scan(&temp.Id, &temp.Target, &temp.Username)
+		if err != nil {
+			panic(err)
+		}
+		res = append(res, temp)
+	}
+	return
 }

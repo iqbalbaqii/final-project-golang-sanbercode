@@ -1,9 +1,18 @@
 package controllers
 
 import (
+	"final-project-golang-sanbercode/structs"
 	"strconv"
 	"time"
 )
+
+var (
+	Session *structs.Account
+)
+
+func SessionStart(incomming *structs.Account) {
+	Session = incomming
+}
 
 func GetYear() string {
 	year, _, _ := time.Now().Date()

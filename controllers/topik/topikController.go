@@ -15,7 +15,6 @@ import (
 )
 
 func GetActivePolling(c *gin.Context) {
-	var today = cons.GetToday()
 	rows := MTopik.GetActivePolling()
 	if len(rows) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
@@ -23,57 +22,27 @@ func GetActivePolling(c *gin.Context) {
 		})
 		return
 	}
-	var toMap []map[string]string
-	var topiks []string
-	for _, row := range rows {
-		idTopik := strconv.Itoa(int(row.Topik.Id))
-		idKonten := strconv.Itoa(int(row.Konten.Id))
-		topiks = append(topiks, idTopik)
-		var temp = map[string]string{
-			"id_topik":   idTopik,
-			"judul":      row.Topik.Judul,
-			"pertanyaan": row.Topik.Pertanyaan,
-			"konten":     row.Konten.Judul,
-			"id_konten":  idKonten,
-			"image_url":  row.Konten.ImageSrc,
-			"created_at": row.Topik.CreatedAt,
-			"created_by": row.Topik.CreatedBy,
-		}
-		toMap = append(toMap, temp)
-	}
-	topiks = cons.Unique(topiks)
-	var res []gin.H
-	for _, topik := range topiks {
-		var temp = cons.FilterMap(toMap, func(row map[string]string) bool {
-			return row["id_topik"] == topik
-		})
-		var konten = []gin.H{}
-		for _, row := range temp {
-			if row["konten"] == "" {
-				continue
-			}
-			konten = append(konten, gin.H{
-				"judul":     row["konten"],
-				"image_url": row["image_url"],
-				"id":        row["id_konten"],
-			})
-		}
-
-		var current = temp[0]
-		var prepareData = gin.H{
-			"judul":      current["judul"],
-			"id":         current["id_topik"],
-			"pertanyaan": current["pertanyaan"],
-			"zkonten":    konten,
-			"created_at": current["created_at"],
-			"created_by": current["created_by"],
-		}
-		res = append(res, prepareData)
-	}
+	var res = CleanPolling(rows)
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "success load active polling",
 		"data":    res,
+	})
+}
+
+func GetTopik(c *gin.Context) {
+	var today = cons.GetToday()
+	rows := MTopik.GetAll()
+	if len(rows) == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "no topik found",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "success load topik polling",
+		"data":    rows,
 	})
 	_ = today
 }
@@ -113,7 +82,7 @@ func AddTopik(c *gin.Context) {
 		"end_date":   topik.EndDate,
 		"created_at": cons.GetToday(),
 		"updated_at": cons.GetToday(),
-		"created_by": "iqbalbaqii",
+		"created_by": cons.Session.Username,
 		"periode":    cons.GetYear(),
 	})
 	if err != nil {
@@ -149,7 +118,7 @@ func UpdateTopik(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"mesasge": "success update",
+		"mesasge": "success update topik " + id,
 		"data":    temp,
 	})
 }
@@ -180,6 +149,76 @@ func DeleteTopik(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"mesasge": "success delete",
+	})
+}
+
+func CleanPolling(rows []structs.Polling) (res []gin.H) {
+	var toMap []map[string]string
+	var topiks []string
+	for _, row := range rows {
+		idTopik := strconv.Itoa(int(row.Topik.Id))
+		idKonten := strconv.Itoa(int(row.Konten.Id))
+		topiks = append(topiks, idTopik)
+		var temp = map[string]string{
+			"id_topik":    idTopik,
+			"judul":       row.Topik.Judul,
+			"pertanyaan":  row.Topik.Pertanyaan,
+			"konten":      row.Konten.Judul,
+			"id_konten":   idKonten,
+			"jumlah_vote": row.Konten.Voting,
+			"image_url":   row.Konten.ImageSrc,
+			"created_at":  row.Topik.CreatedAt,
+			"created_by":  row.Topik.CreatedBy,
+		}
+		toMap = append(toMap, temp)
+	}
+	topiks = cons.Unique(topiks)
+
+	for _, topik := range topiks {
+		var temp = cons.FilterMap(toMap, func(row map[string]string) bool {
+			return row["id_topik"] == topik
+		})
+		var konten = []gin.H{}
+		for _, row := range temp {
+			if row["konten"] == "" {
+				continue
+			}
+			konten = append(konten, gin.H{
+				"id":          row["id_konten"],
+				"image_url":   row["image_url"],
+				"judul":       row["konten"],
+				"jumlah_vote": row["jumlah_vote"],
+			})
+		}
+
+		var current = temp[0]
+		var prepareData = gin.H{
+			"judul":      current["judul"],
+			"id":         current["id_topik"],
+			"pertanyaan": current["pertanyaan"],
+			"created_at": current["created_at"],
+			"created_by": current["created_by"],
+			"konten":     konten,
+		}
+		res = append(res, prepareData)
+	}
+	return
+}
+
+func GetTopikID(c *gin.Context) {
+
+	rows := MTopik.GetActivePollingBy(c.Param("id_topik"))
+	if len(rows) == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "polling not found",
+		})
+		return
+	}
+	var res = CleanPolling(rows)
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "success load active polling",
+		"topik":   res,
 	})
 }
 

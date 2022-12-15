@@ -5,6 +5,7 @@ import (
 	"final-project-golang-sanbercode/controllers"
 	"final-project-golang-sanbercode/model/general"
 	"final-project-golang-sanbercode/model/listener"
+	"final-project-golang-sanbercode/model/user"
 	"final-project-golang-sanbercode/structs"
 	"fmt"
 	"net/http"
@@ -126,6 +127,19 @@ func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"mesasge": "success delete username " + id,
 	})
+}
+
+func CheckLogin(username string, password string) (bool, *structs.Account) {
+	var user = user.GetUserBy(username)
+	if !(len(user) > 0) {
+		return false, nil
+	}
+	var current = user[0]
+	if password != current.Password {
+		return false, nil
+	}
+
+	return true, &current
 }
 
 // ============================

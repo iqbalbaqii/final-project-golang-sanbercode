@@ -7,10 +7,10 @@ CREATE TABLE public."user" (
 	"password" varchar NOT NULL,
 	email varchar NULL,
 	full_name varchar NOT NULL,
-	gender varchar NULL,
 	"level" int8 NOT NULL,
 	created_at timestamp NULL,
 	updated_at timestamp NULL,
+	gender varchar NULL,
 	CONSTRAINT user_pk PRIMARY KEY (username)
 );
 -- +migrate StatementEnd

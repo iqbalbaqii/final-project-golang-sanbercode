@@ -1,6 +1,5 @@
 -- +migrate Up
 -- +migrate StatementBegin
-DROP TABLE public.konten;
 CREATE TABLE public.konten (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	id_topik int8 NULL,

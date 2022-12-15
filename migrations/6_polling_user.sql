@@ -1,6 +1,5 @@
 -- +migrate Up
 -- +migrate StatementBegin
-DROP TABLE public."user";
 CREATE TABLE public."user" (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	username varchar NOT NULL,

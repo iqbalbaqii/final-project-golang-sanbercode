@@ -35,9 +35,9 @@ func Update(table string, where string, data map[string]string) error {
 	return errs.Err()
 }
 
-func Delete(table string, where string, softDelete bool) error {
+func Delete(table string, where string, hardDelete bool) error {
 	var sql string
-	if !softDelete {
+	if hardDelete {
 		sql = fmt.Sprintf("DELETE  FROM %s WHERE %s", table, where)
 	} else {
 		return Update(table, where, map[string]string{

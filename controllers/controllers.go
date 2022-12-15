@@ -1,9 +1,14 @@
 package controllers
 
 import (
+	"strconv"
 	"time"
 )
 
+func GetYear() string {
+	year, _, _ := time.Now().Date()
+	return strconv.Itoa(year)
+}
 func GetToday() string {
 	return time.Now().Format("2006-01-02 15:04:05")
 }

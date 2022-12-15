@@ -1,5 +1,6 @@
 -- +migrate Up
 -- +migrate StatementBegin
+DROP TABLE public.target;
 CREATE TABLE public.target (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	target varchar NOT NULL,

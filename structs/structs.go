@@ -4,20 +4,20 @@ type Topik struct {
 	Id         int64  `json:"-"`
 	Judul      string `json:"judul"`
 	Pertanyaan string `json:"pertanyaan"`
-	Periode    string `json:"periode"`
+	Periode    string `json:"-"`
 	StartDate  string `json:"start_date"`
 	EndDate    string `json:"end_date"`
 	CreatedBy  string `json:"-"`
 	CreatedAt  string `json:"-"`
 	UpdateAt   string `json:"-"`
-	Deleted    int    `json:"-"`
-	IsRelease  int    `json:"-"`
+	Deleted    string `json:"deleted"`
+	IsRelease  string `json:"-"`
 	Target     string `json:"target"`
 }
 
 type Konten struct {
 	Id         int64  `json:"-"`
-	IdTopik    int64  `json:"id_topik"`
+	IdTopik    string `json:"id_topik"`
 	Judul      string `json:"judul"`
 	Keterangan string `json:"keterangan"`
 	ImageSrc   string `json:"image_src"`
@@ -26,8 +26,8 @@ type Konten struct {
 
 type Respon struct {
 	Id        int64  `json:"-"`
-	IdTopik   int64  `json:"id_topik"`
-	Response  int64  `json:"response"`
+	IdTopik   string `json:"id_topik"`
+	Response  string `json:"response"`
 	CreatedBy string `json:"created_by"`
 	CreatedAt string `json:"-"`
 	UpdateAt  string `json:"-"`
@@ -53,11 +53,30 @@ type User struct {
 	Password  string `json:"password"`
 	Email     string `json:"email"`
 	FullName  string `json:"full_name"`
-	Level     int    `json:"level"`
+	Gender    string `json:"gender"`
+	Level     string `json:"level"`
 	CreatedAt string `json:"-"`
 	UpdateAt  string `json:"-"`
 }
 type Polling struct {
 	Topik  Topik
 	Konten Konten
+}
+
+// =======================
+
+type ValidationKonten struct {
+	IdTopik    string `json:"id_topik" binding:"required"`
+	Judul      string `json:"judul" binding:"required"`
+	Keterangan string `json:"keterangan"`
+	ImageSrc   string `json:"image_src" binding:"required"`
+}
+
+type ValidateUser struct {
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
+	Email    string `json:"email" binding:"required"`
+	FullName string `json:"full_name" binding:"required"`
+	Gender   string `json:"gender" binding:"required"`
+	Level    string `json:"level" binding:"required"`
 }

@@ -1,5 +1,6 @@
 -- +migrate Up
 -- +migrate StatementBegin
+DROP TABLE public.listener;
 CREATE TABLE public.listener (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	username varchar NOT NULL,

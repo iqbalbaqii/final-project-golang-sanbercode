@@ -1,5 +1,6 @@
 -- +migrate Up
 -- +migrate StatementBegin
+DROP TABLE public.topik;
 CREATE TABLE public.topik (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	judul varchar(256) NOT NULL,

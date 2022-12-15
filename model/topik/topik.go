@@ -6,7 +6,7 @@ import (
 )
 
 func GetActivePolling() (result []structs.Polling) {
-	var sql = `SELECT t.judul topik, t.pertanyaan, coalesce (k.judul, '') judul  FROM topik t 
+	var sql = `SELECT t.id, t.judul topik, t.pertanyaan, coalesce (k.judul, '') judul  FROM topik t 
 	LEFT join konten k on k.id_topik = t.id `
 
 	rows, err := connect.Db.Query(sql)
@@ -17,7 +17,7 @@ func GetActivePolling() (result []structs.Polling) {
 
 	for rows.Next() {
 		var polling = structs.Polling{}
-		err = rows.Scan(&polling.Topik.Judul, &polling.Topik.Pertanyaan, &polling.Konten.Judul)
+		err = rows.Scan(&polling.Topik.Id, &polling.Topik.Judul, &polling.Topik.Pertanyaan, &polling.Konten.Judul)
 
 		if err != nil {
 			panic(err)

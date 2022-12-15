@@ -42,6 +42,7 @@ func Start() {
 		panic(Err)
 	}
 	fmt.Println("DB Connection success")
+	DbMigrate()
 }
 
 func DbMigrate() {

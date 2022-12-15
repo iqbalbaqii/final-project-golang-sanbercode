@@ -10,6 +10,7 @@ import (
 	CTopik "final-project-golang-sanbercode/controllers/topik"
 	CUser "final-project-golang-sanbercode/controllers/user"
 	connect "final-project-golang-sanbercode/model"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -45,5 +46,6 @@ func main() {
 
 	root.GET("/listener/:target", admin.HasTobeSuper, CList.GetListenerFromTarget)
 
-	router.Run("localhost:8080")
+	router.Run(":" + os.Getenv("PORT"))
+
 }

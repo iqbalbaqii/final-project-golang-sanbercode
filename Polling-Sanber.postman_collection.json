@@ -1,0 +1,481 @@
+{
+	"info": {
+		"_postman_id": "f7c58e84-abb3-4e04-bed6-a1352fddad21",
+		"name": "Polling-Sanber",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Topik polling",
+			"item": [
+				{
+					"name": "Buat topik",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"judul\": \"Poling makanan paling enak\",\n    \"pertanyaan\" : \"Mcd atau KFC\",\n    \"start_date\": \"2022-12-12\",\n    \"end_date\": \"2022-12-12\",\n    \"target\": \"ALL\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/topik",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"topik"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get  polling aktif",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/polling/aktif",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"aktif"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get semua topik",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/polling/topik",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"topik"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get topik by id_topik",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/polling/topik/7",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"topik",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update topik",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_release\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/topik/7",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"topik",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete topik",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hard_delete\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/topik/4",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"topik",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Konten polling",
+			"item": [
+				{
+					"name": "Buat konten",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_topik\": \"7\",\n    \"judul\": \"KFC\",\n    \"keterangan\": \"McD food\",\n    \"image_src\": \"https://images.tokopedia.net/img/KRMmCm/2022/8/30/e5519680-cb4c-4dbe-b8a1-8811f7217668.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/konten",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"konten"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update konten",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"judul\":\"Mcd dah Diubah Gaes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/konten/8",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"konten",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete konten",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/polling/konten/7",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"konten",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Respon polling",
+			"item": [
+				{
+					"name": "Voting sebuah polling",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_konten\": \"9\",\n    \"id_topik\": \"7\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/respon",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"respon"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Target polling",
+			"item": [
+				{
+					"name": "Insert",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "asdasd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "iqbalbaqii",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"UHU\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/target",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"target"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/polling/target",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"target"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listener",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/polling/listener/ALL",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"listener",
+								"ALL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"iqbalbaqii\",\n  \"password\": \"asdasd\",\n  \"email\": \"iqube@gmail.com\",\n  \"full_name\": \"Iqbal Baqi\",\n  \"level\": \"1\",\n  \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{dev}}/polling/user",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{dev}}/polling/users/iqbalbaqii",
+							"host": [
+								"{{dev}}"
+							],
+							"path": [
+								"polling",
+								"users",
+								"iqbalbaqii"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://final-project-golang-sanbercode-production.up.railway.app/polling/users",
+					"protocol": "https",
+					"host": [
+						"final-project-golang-sanbercode-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"polling",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "asdasd",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

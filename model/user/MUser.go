@@ -26,3 +26,25 @@ func GetUserBy(username string) []structs.Account {
 
 	return res
 }
+
+func GetAll() []structs.User {
+	sql := "SELECT username, password, full_name, email, level FROM \"user\""
+
+	raw, err := connect.Db.Query(sql)
+	if err != nil {
+		panic(err)
+	}
+	defer raw.Close()
+
+	res := []structs.User{}
+	for raw.Next() {
+		var temp structs.User
+		err = raw.Scan(&temp.Username, &temp.Password, &temp.FullName, &temp.Email, &temp.Level)
+		if err != nil {
+			panic(err)
+		}
+		res = append(res, temp)
+	}
+
+	return res
+}

@@ -34,9 +34,10 @@ func main() {
 	root.PUT("/konten/:id", CKonten.UpdateKonten)
 	root.DELETE("/konten/:id", CKonten.DeleteKonten)
 
-	root.POST("/users", admin.HasTobeSuper, CUser.AddNewUser)
-	root.PUT("/users/:username", admin.HasTobeSuper, CUser.UpdateUser)
-	root.DELETE("/users/:username", admin.HasTobeSuper, CUser.DeleteUser)
+	root.GET("/user", CUser.GetUser)
+	root.POST("/user", admin.HasTobeSuper, CUser.AddNewUser)
+	root.PUT("/user/:username", admin.HasTobeSuper, CUser.UpdateUser)
+	root.DELETE("/user/:username", admin.HasTobeSuper, CUser.DeleteUser)
 
 	root.POST("/respon", CRespon.CalculateRespon)
 

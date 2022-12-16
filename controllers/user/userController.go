@@ -142,6 +142,15 @@ func CheckLogin(username string, password string) (bool, *structs.Account) {
 	return true, &current
 }
 
+func GetUser(c *gin.Context) {
+
+	var raw = user.GetAll()
+	c.JSON(http.StatusOK, gin.H{
+		"mesasge": "success",
+		"data":    raw,
+	})
+}
+
 // ============================
 func validateGender(gender string) bool {
 	return gender == "female" || gender == "male"

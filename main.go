@@ -20,9 +20,9 @@ func main() {
 	// defer connect.Db.Close()
 
 	var router = gin.Default()
-	var root = router.Group("/polling", auth.BasicAuth)
+	router.GET("/polling/aktif", CTopik.GetActivePolling)
 
-	root.GET("/aktif", CTopik.GetActivePolling)
+	var root = router.Group("/polling", auth.BasicAuth)
 
 	root.GET("/topik", CTopik.GetTopik)
 	root.GET("/topik/:id_topik", CTopik.GetTopikID)
